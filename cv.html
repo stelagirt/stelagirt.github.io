@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Stella Girtsou</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            min-height: 100vh;
+            padding: 100px 20px 40px;
+            position: relative;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: rgba(249, 246, 238, 0.95);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 25px;
+            color: #2d5a27;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(249, 246, 238, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #f9f6ee;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            color: #f9f6ee;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #f9f6ee;
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 60px 80px;
+            border: 1px solid rgba(249, 246, 238, 0.3);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #2d5a27, #4a7c59, #2d5a27);
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .name {
+            font-size: 3em;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title-roles {
+            font-size: 1.4em;
+            color: #718096;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .contact-item svg {
+            width: 16px;
+            height: 16px;
+            color: #2d5a27;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid transparent;
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            border-radius: 2px;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(45, 90, 39, 0.08);
+            border-radius: 15px;
+            border-left: 4px solid #2d5a27;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .experience-item:hover, .education-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(45, 90, 39, 0.15);
+        }
+
+        .job-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .company {
+            font-size: 1.1em;
+            color: #2d5a27;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .date {
+            font-size: 0.95em;
+            color: #718096;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .description ul {
+            margin-left: 20px;
+        }
+
+        .description li {
+            margin-bottom: 8px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: rgba(45, 90, 39, 0.08);
+            padding: 25px;
+            border-radius: 15px;
+            border-top: 4px solid #2d5a27;
+        }
+
+        .skill-category h4 {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .skill-list {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .languages {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .language {
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            color: #f9f6ee;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .publication {
+            background: rgba(45, 90, 39, 0.08);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2d5a27;
+        }
+
+        .publication-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .publication-details {
+            color: #718096;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(249, 246, 238, 0.15);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                left: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+                flex: 1;
+                min-width: 70px;
+                text-align: center;
+            }
+
+            body {
+                padding: 120px 20px 40px;
+            }
+
+            .container {
+                padding: 40px 30px;
+            }
+
+            .name {
+                font-size: 2.2em;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <nav class="nav-menu">
+        <a href="index.html" class="nav-btn">Home</a>
+        <a href="about.html" class="nav-btn">About</a>
+        <a href="cv.html" class="nav-btn active">CV</a>
+        <a href="projects.html" class="nav-btn">Projects</a>
+        <a href="publications.html" class="nav-btn">Publications</a>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="name">Stella Girtsou</h1>
+            <p class="title-roles">Research Associate | Machine Learning Engineer | Data Analyst</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                    +30-6948463383
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    girtsou.s@gmail.com
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    LinkedIn, GitHub, Scholar
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Education</h2>
+            
+            <div class="education-item">
+                <div class="job-title">PhD Candidate</div>
+                <div class="company">National Technical University of Athens</div>
+                <div class="date">2021 - Present</div>
+                <div class="description">
+                    School of Mechanical Engineering<br>
+                    <strong>Research Focus:</strong> Deep Learning methodologies for short-term Fire Risk Forecasting
+                </div>
+            </div>
+
+            <div class="education-item">
+                <div class="job-title">M.Sc. in Space Technologies and Applications</div>
+                <div class="company">National Observatory of Athens & University of Peloponnese</div>
+                <div class="date">2017 - 2019</div>
+            </div>
+
+            <div class="education-item">
+                <div class="job-title">BSc in GIS and Remote Sensing</div>
+                <div class="company">National Technical University of Athens</div>
+                <div class="date">2016</div>
+                <div class="description">
+                    School of Rural, Surveying and Geoinformatics Engineering
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Professional Experience</h2>
+            
+            <div class="experience-item">
+                <div class="job-title">Earth Observation and Machine Learning Researcher</div>
+                <div class="company">Frontier Development Lab (FDL)</div>
+                <div class="date">June 2024 - October 2025</div>
+                <div class="description">
+                    Self-supervised Learning for the forecasting of detailed 3D cloud maps with integration of active and passive satellite sensors.
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">Research Associate</div>
+                <div class="company">National Observatory of Athens</div>
+                <div class="date">2020 - present</div>
+                <div class="description">
+                    <ul>
+                        <li>Deep Learning on Earth Observation data for forest fire modeling and forecasting</li>
+                        <li>Building end-to-end ML pipelines for data collection, preprocessing, hyperparameter tuning and model establishment</li>
+                        <li>Developed Python scripts for processing large EO datasets using parallel processing and memory management strategies (HDF5, Zarr)</li>
+                        <li>Led various projects related to wildfire management: Prediction, Detection, monitoring, and damage assessment</li>
+                        <li>Proposal writing for EU Projects, project management and deliverables preparation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">Data Analyst</div>
+                <div class="company">Greenpeace, Greece and Global Mapping Hub</div>
+                <div class="date">2017 - 2019</div>
+                <div class="description">
+                    <ul>
+                        <li>Maintain and manage the performance and reliability of database systems</li>
+                        <li>Design and implement database structures, create and execute scripts and queries</li>
+                        <li>Interpret information from database investigations to make predictions and recommendations</li>
+                        <li>GIS analyst in various projects with Global Mapping Hub</li>
+                        <li>Develop multi-source data integration methods using cutting-edge frameworks such as Open Data Cube and CREODIAS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Programming Languages</h4>
+                    <div class="skill-list">Python, SQL, CUDA, HPC</div>
+                </div>
+                <div class="skill-category">
+                    <h4>Frameworks & Libraries</h4>
+                    <div class="skill-list">PyTorch, Tensorflow, scikit-learn, GDAL, xarray, Pandas, GeoPandas, Numpy, Matplotlib, Spark</div>
+                </div>
+                <div class="skill-category">
+                    <h4>Databases</h4>
+                    <div class="skill-list">PostgreSQL, PostGIS</div>
+                </div>
+                <div class="skill-category">
+                    <h4>Software & Tools</h4>
+                    <div class="skill-list">ArcGIS, QGIS, SNAP, AutoCAD, Open Data Cube, CREODIAS</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Languages</h2>
+            <div class="languages">
+                <div class="language">English</div>
+                <div class="language">Greek</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Selected Publications & Talks</h2>
+            
+            <div class="publication">
+                <div class="publication-title">Next Day fire Prediction via Semantic Segmentation</div>
+                <div class="publication-details">
+                    ECML, Proceedings of MACLEAN: MAChine Learning for Earth Observation Workshop co-located with ECML/PKDD 2023, Turin, Italy, October 18-23, 2023
+                </div>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">Geoinformatics and Machine Learning for Comprehensive Fire Risk Assessment and Management in Peri-Urban Environments: A Building-Block-Level Approach</div>
+                <div class="publication-details">
+                    Applied Sciences. 2023; 13(18):10261. <a href="https://doi.org/10.3390/app131810261" target="_blank" style="color: #2d5a27;">https://doi.org/10.3390/app131810261</a>
+                </div>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">Estimating Next Day's Forest Fire Risk via a Complete Machine Learning Methodology</div>
+                <div class="publication-details">
+                    Remote Sensing, vol. 14, no. 5, pp. 1222, Mar. 2022
+                </div>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">A Machine Learning methodology for next day wildfire prediction</div>
+                <div class="publication-details">
+                    Proceedings of the 2021 IEEE International Geoscience and Remote Sensing Symposium (IGARSS), 2021, pp. 8487-8490
+                </div>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">Implementation of a Random Forest Classifier to Examine Wildfire Predictive Modelling Greece</div>
+                <div class="publication-details">
+                    Proceedings of the International Conference on Multimedia Modeling, 2021, pp. 318-329
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
